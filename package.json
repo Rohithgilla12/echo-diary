@@ -21,6 +21,8 @@
     "vue-tsc": "^1"
   },
   "dependencies": {
+    "@netlify/blobs": "^7.3.0",
+    "@netlify/edge-functions": "^2.7.0",
     "@netlify/functions": "^2.6.3",
     "@nuxtjs/kinde": "^0.1.6",
     "class-variance-authority": "^0.7.0",
