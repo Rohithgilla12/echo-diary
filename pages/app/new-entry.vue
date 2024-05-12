@@ -14,16 +14,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import { Calendar as CalendarIcon, Image, Mic } from "lucide-vue-next";
 
+import { Label } from "@/components/ui/label";
 import {
   DateFormatter,
   type DateValue,
   getLocalTimeZone,
 } from "@internationalized/date";
+import Textarea from "~/components/ui/textarea/Textarea.vue";
 
 const df = new DateFormatter("en-US", {
   dateStyle: "long",
@@ -31,10 +32,58 @@ const df = new DateFormatter("en-US", {
 
 const value = ref<DateValue>();
 
-const image = ref<File>();
-const audio = ref<File>();
+const image = ref<File | null>();
+const audio = ref<File | null>();
+
+const fileIds = ref<string[]>([]);
+
+const loading = ref(false);
 
 const { toast } = useToast();
+
+const updateImage = (e: any) => {
+  image.value = e.target.files[0];
+};
+
+const updateAudio = (e: any) => {
+  audio.value = e.target.files[0];
+};
+
+const supabase = useSupabaseClient();
+
+const uploadFiles = async () => {
+  try {
+    loading.value = true;
+    if (image.value) {
+      const { data, error } = await supabase.storage
+        .from("entries")
+        .upload(image.value.name, image.value);
+
+      if (error) {
+        toast({ description: error.message, title: "Error" });
+      } else {
+        fileIds.value.push(data.path);
+      }
+    }
+
+    if (audio.value) {
+      const { data, error } = await supabase.storage
+        .from("entries")
+        .upload(audio.value.name, audio.value);
+
+      if (error) {
+        toast({ description: error.message, title: "Error" });
+      } else {
+        fileIds.value.push(data.path);
+      }
+    }
+  } catch (error) {
+    toast({
+      description: "Oops, error while uploading files to the ☁️",
+      title: "Error",
+    });
+  }
+};
 </script>
 
 <template>
@@ -45,8 +94,6 @@ const { toast } = useToast();
       </CardHeader>
       <CardContent>
         <div class="mb-4">
-          <Input placeholder="What's on your mind?" class="mb-2" />
-
           <Popover>
             <PopoverTrigger as-child>
               <Button
@@ -70,20 +117,38 @@ const { toast } = useToast();
               <Calendar v-model="value" initial-focus />
             </PopoverContent>
           </Popover>
+          <div class="grid w-full gap-1.5">
+            <Label htmlFor="content" class="my-2">What's on your mind</Label>
+            <Textarea
+              placeholder="I am feeling excited today..."
+              class="mb-2"
+              id="content"
+            />
+          </div>
 
           <div class="mt-4">
             <div class="flex flex-row space-x-8">
               <span>
-                <Label for="picture">
+                <label class="cursor-pointer" for="picture">
                   <Image class="mr-2 h-4 w-4" /> Upload Image
-                </Label>
-                <Input id="picture" type="file" accept="image/*" />
+                </label>
+                <Input
+                  @change="updateImage"
+                  id="picture"
+                  type="file"
+                  accept="image/*"
+                />
               </span>
               <span>
-                <Label for="audio">
+                <label class="cursor-pointer" for="audio">
                   <Mic class="mr-2 h-4 w-4" /> Upload Audio
-                </Label>
-                <Input id="audio" type="file" accept="audio/*" />
+                </label>
+                <Input
+                  @change="updateAudio"
+                  id="audio"
+                  type="file"
+                  accept="audio/*"
+                />
               </span>
             </div>
           </div>
@@ -98,13 +163,5 @@ const { toast } = useToast();
         <Button variant="ghost">Cancel</Button>
       </CardFooter>
     </Card>
-  </div>
-  <div id="view-entries">
-    <h2 class="text-xl font-semibold mb-4 dark:text-white">Past Entries</h2>
-    <ScrollArea class="h-[400px] shadow border dark:border-gray-700">
-      <ul class="space-y-2 p-4">
-        <!-- content -->
-      </ul>
-    </ScrollArea>
   </div>
 </template>

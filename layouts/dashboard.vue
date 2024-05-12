@@ -7,10 +7,12 @@ import {
 
 import { Home, FilePlus, Archive, Image } from "lucide-vue-next";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Toaster from "@/components/ui/toast/Toaster.vue";
 </script>
 
 <template>
   <nav class="bg-white dark:bg-gray-800 shadow-md">
+    <Toaster />
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
         <div class="flex space-x-4">
