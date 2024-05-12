@@ -7,7 +7,6 @@ import {
 
 import { Home, FilePlus, Archive, Image } from "lucide-vue-next";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import ColorToggle from "~/components/ui/color-toggle/ColorToggle.vue";
 </script>
 
 <template>
