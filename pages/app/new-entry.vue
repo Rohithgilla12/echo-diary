@@ -16,10 +16,8 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/toast";
-import { formatISO } from "date-fns";
-import { Calendar as CalendarIcon, Image, Mic } from "lucide-vue-next";
-import { ref } from "vue";
 import { cn } from "@/lib/utils";
+import { Calendar as CalendarIcon, Image, Mic } from "lucide-vue-next";
 
 import {
   DateFormatter,
@@ -32,6 +30,9 @@ const df = new DateFormatter("en-US", {
 });
 
 const value = ref<DateValue>();
+
+const image = ref<File>();
+const audio = ref<File>();
 
 const { toast } = useToast();
 </script>
@@ -71,18 +72,20 @@ const { toast } = useToast();
           </Popover>
 
           <div class="mt-4">
-            <Button variant="secondary" class="mb-2" as-child>
-              <label class="cursor-pointer">
-                <Image class="mr-2 h-4 w-4" /> Upload Image
-                <input type="file" class="hidden" accept="image/*" />
-              </label>
-            </Button>
-            <Button variant="secondary" as-child>
-              <label class="cursor-pointer">
-                <Mic class="mr-2 h-4 w-4" /> Upload Audio
-                <input type="file" class="hidden" accept="audio/*" />
-              </label>
-            </Button>
+            <div class="flex flex-row space-x-8">
+              <span>
+                <Label for="picture">
+                  <Image class="mr-2 h-4 w-4" /> Upload Image
+                </Label>
+                <Input id="picture" type="file" accept="image/*" />
+              </span>
+              <span>
+                <Label for="audio">
+                  <Mic class="mr-2 h-4 w-4" /> Upload Audio
+                </Label>
+                <Input id="audio" type="file" accept="audio/*" />
+              </span>
+            </div>
           </div>
         </div>
       </CardContent>
