@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/kinde",
     "@nuxtjs/tailwindcss",
+    "@nuxtjs/color-mode",
     "shadcn-nuxt",
     "@nuxtjs/supabase",
   ],
