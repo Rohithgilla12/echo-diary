@@ -4,13 +4,12 @@ import { Button } from "@/components/ui/button";
 import EntryDetailsCard from "~/components/organisms/entry-details-card.vue";
 import type { Entry } from "~/types/entry";
 
-const { data, pending, error, refresh } = useAsyncData("entries", () =>
-  $fetch("/.netlify/functions/entries", {
-    headers: {
-      uid: useAuth().user?.id || "",
-    },
-  })
-);
+const { data, pending, refresh } = useFetch("/.netlify/functions/entries", {
+  headers: {
+    uid: useAuth().user?.id || "",
+  },
+  server: false,
+});
 
 const entries = computed(
   () => (data.value as { entries: Entry[] })?.entries
