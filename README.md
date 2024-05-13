@@ -1,57 +1,74 @@
-# Kinde Starter Kit - Nuxt 3
+## What I Built
 
-## Register an account on Kinde
+Welcome to Echo Diary, a cutting-edge personal diary app ingeniously crafted atop Netlify's robust Blob storage.
 
-To get started set up an account on [Kinde](https://app.kinde.com/register). This is a [Nuxt 3](https://nuxt.com/) project bootstrapped with [`nuxi`](https://www.npmjs.com/package/nuxi).
+Echo Diary is more than just a diary; it's a secure vault for your thoughts, emotions, and memories, encrypted during transit for utmost privacy and security. 
+Blobs are safe since they are encrypted while transit, reference
+(https://docs.netlify.com/blobs/overview/#sensitive-data)
 
-## Setup your local environment
+Key Features of Echo Diary:
 
-Clone this repo and install dependencies by running `npm i`
+## Mood Tracker
+Ever wondered about your emotional trends? Our Mood Tracker doesn't just record your feelings using expressive emojis; it transforms them into insightful graphs. This visual journey through your emotional landscape can help you understand life's ups and downs and foster personal growth.
 
-Make a copy of `.env.example` and name it simply `.env`. Replacing the following values from the Kinde `Settings -> Applications -> Backend app` page.
+## Dynamic Entries
+Echo Diary lets you capture life as it happens. Whether it’s a quick text, a snapshot of a moment, or an audio recording, you can store multiple entries per day. Browsing through your past entries isn't just a walk down memory lane; it's a deep dive into your personal evolution, helping you reflect on your most significant moments.
 
-```
-NUXT_AUTH_DOMAIN="https://<your_kinde_subdomain>.kinde.com"
-NUXT_CLIENT_ID="<your_kinde_client_id>"
-NUXT_CLIENT_SECRET="<your_kinde_client_secret>"
-```
+>Your Life, Encrypted, Secured, and Beautifully Plotted. Dive into Echo Diary today and start tracking your journey in a way that's secure, intuitive, and profoundly personal.
 
-## Set your Callback and Logout URLs
 
-Your user will be redirected to Kinde to authenticate. After they have logged in or registered they will be redirected back to your Nuxt application.
+## Demo
 
-You need to specify in Kinde which url you would like your user to be redirected to in order to authenticate your app.
+### Dashboard
+![Dashboard](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/89a0a79fyncq4xjmiudh.png)
 
-On the `Settings -> Applications -> Backend app` page set `Allowed callback URLs` to `http://localhost:3000/api/callback`
 
-> Important! This is required for your users to successfully log in to your app.
 
-You will also need to set the url they will be redirected to upon logout. Set the ` Allowed logout redirect URLs` to http://localhost:3000.
+### Add Entry
+![Add Entry](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m8fiqk2t03wm6po39r85.png)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Start your project
+### View Entries
+![View Entires](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l8hwrs5u46a3yc82rfxt.png)
 
-Run `npm run dev` in a terminal and navigate to `http://localhost:3000`.
 
-Click on `Sign up` and register your first user for your business!
+### Loom Video explaining the project
+https://www.loom.com/share/a08f7b7c49f94322aa35d45d52fdd60d?sid=4073a958-5125-4787-b59e-1100ac6db98d
 
-## View users in Kinde
+## Tech Stack
+- `Nuxt`
+- `Netlify` for deploys, blob storage, image optimisations (using Nuxt Image under the hood)
+- `Kinde` for Authentication
+- `Supabase` for file storage
 
-If you navigate to the "Users" page within Kinde you will see your newly registered user there. 🚀
 
-## Production
 
-Build the application for production:
+## Platform Primitives
+Leveraged Netlify blobs as a database, used it to store user entries and moods.
 
-```bash
-npm run build
-```
+`entries_uid`: Every diary entry is assigned a unique identifier (entries_uid), which helps in efficiently storing and retrieving the diary entries from the blob storage. This UID not only ensures the integrity of the data but also facilitates easy access and management.
 
-Locally preview production build:
+`moods_uid`: Each mood entry is similarly tagged with a unique identifier (moods_uid), allowing the Mood Tracker feature to quickly aggregate and analyze mood data over time.
 
-```bash
-npm run preview
-```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+![Arch](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v3l61090ltgz5vw9vgg9.png)
+
+
+Entries Blobs
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8g9h0evl223hx09sww4b.png)
+
+
+
+Mood Blobs
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fj3m5abcbbp0n7cw41d7.png)
+
+
+
+Leveraged Netlify Image CDN to power the image transformations that happens inside the `view-entries` tab.
+
+
+
+
+
+
