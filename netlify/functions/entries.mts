@@ -3,9 +3,6 @@ import type { Context } from "@netlify/functions";
 
 export default async (req: Request, context: Context) => {
   const uid = req.headers.get("uid");
-
-  console.log("uid", uid);
-
   if (!uid) {
     return Response.json({ message: "Missing uid" }, { status: 400 });
   }

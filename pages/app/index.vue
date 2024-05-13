@@ -34,4 +34,8 @@ const user = client.user;
 definePageMeta({
   middleware: ["auth-logged-in"],
 });
+
+navigateTo({
+  path: "/app/dashboard",
+});
 </script>

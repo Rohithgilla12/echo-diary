@@ -87,7 +87,32 @@ const cleanUp = () => {
   audio.value = null;
 };
 
+const checkIfFieldsAreValid = () => {
+  if (!value.value) {
+    toast({
+      description: "Please select a date.",
+      title: "Error",
+      variant: "destructive",
+    });
+    return false;
+  }
+
+  if (!body.value) {
+    toast({
+      description: "Please write something.",
+      title: "Error",
+      variant: "destructive",
+    });
+    return false;
+  }
+
+  return true;
+};
+
 const addEntryObject = async () => {
+  if (!checkIfFieldsAreValid()) {
+    return;
+  }
   try {
     loading.value = true;
     const fileIds = await uploadFiles();
