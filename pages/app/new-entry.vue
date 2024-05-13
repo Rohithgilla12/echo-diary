@@ -45,6 +45,7 @@ const updateAudio = (e: any) => {
 
 const supabase = useSupabaseClient();
 
+//todo: move it to a better place later
 const uploadFiles = async () => {
   try {
     loading.value = true;

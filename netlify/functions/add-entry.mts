@@ -2,7 +2,7 @@ import { getStore } from "@netlify/blobs";
 import type { Context } from "@netlify/functions";
 import type { Entry } from "~/types/entry";
 
-export default async (req: Request, context: Context) => {
+export default async (req: Request, _: Context) => {
   const body = (await req.json()) as Entry;
 
   if (!body.uid) {
@@ -22,6 +22,7 @@ export default async (req: Request, context: Context) => {
   const timestamp = Date.now().toLocaleString();
 
   // todo: do the AI magic here and add more things to the entry, but via background job
+  // but it's only available in the netlify paid plan
   await entries.setJSON(timestamp, body, {
     metadata: {
       date: timestamp,
