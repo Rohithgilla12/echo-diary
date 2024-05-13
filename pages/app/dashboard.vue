@@ -73,8 +73,8 @@ const addMoodObject = async () => {
   <div>
     <h1 class="text-2xl font-bold mb-4">Echo Diary Dashboard</h1>
     <p class="text-gray-600 dark:text-gray-300 mb-8">
-      Welcome to your personal AI powered diary. Access all your features from
-      the sticky sidebar.
+      Welcome to your personal diary. Access all your features from the sticky
+      sidebar.
     </p>
 
     <div
