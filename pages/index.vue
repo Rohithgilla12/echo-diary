@@ -1,20 +1,13 @@
 <template>
   <div class="container">
-    <div class="card hero">
-      <p class="text-display-1 hero-title">
-        Let’s start authenticating <br>
-        with Kinde
-      </p>
-      <p class="text-body-1 hero-tagline">
-        Configure your app
-      </p>
+    <h1>Please Login to continue</h1>
 
-      <NuxtLink
-        to="https://kinde.com/docs/sdks/nuxt-sdk"
-        class="btn btn-light btn-big"
-        external
-      >
-        Go to docs
+    <div>
+      <NuxtLink class="btn btn-ghost sign-in-btn" to="/api/login" external>
+        Sign in
+      </NuxtLink>
+      <NuxtLink class="btn btn-dark" to="/api/register" external>
+        Sign up
       </NuxtLink>
     </div>
   </div>

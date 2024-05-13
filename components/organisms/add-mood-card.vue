@@ -13,11 +13,18 @@ const position = ref("bottom");
         <DropdownMenuLabel>Mood for the day</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup v-model="selectedMood">
-          <DropdownMenuRadioItem value="😡">😡</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="😔">😔</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="😐">😐</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="😊">😊</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="😃">😃</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😟">😟 Concerned</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😢">😢 Sad</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😐">😐 Neutral</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="🙂"
+            >🙂 Slightly Smiling</DropdownMenuRadioItem
+          >
+          <DropdownMenuRadioItem value="😄">😄 Happy</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😡">😡 Angry</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😨">😨 Fearful</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😴">😴 Tired</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😍">😍 Loving</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="😌">😌 Relieved</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -4,3 +4,9 @@ export interface Entry {
   body: string;
   uid: string;
 }
+
+export interface Mood {
+  mood: string;
+  uid: string;
+  date: string;
+}

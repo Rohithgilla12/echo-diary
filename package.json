@@ -29,6 +29,8 @@
     "@netlify/edge-functions": "^2.7.0",
     "@netlify/functions": "^2.6.3",
     "@nuxtjs/kinde": "^0.1.6",
+    "@unovis/ts": "^1.4.0",
+    "@unovis/vue": "^1.4.0",
     "@vueuse/core": "^10.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

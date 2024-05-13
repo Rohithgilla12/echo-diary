@@ -8,6 +8,16 @@ import {
 import { Home, FilePlus, Archive, Image } from "lucide-vue-next";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Toaster from "@/components/ui/toast/Toaster.vue";
+
+definePageMeta({
+  middleware: ["auth-logged-in"],
+});
+
+if (!useAuth().loggedIn) {
+  navigateTo({
+    path: "/api/login",
+  });
+}
 </script>
 
 <template>
@@ -36,7 +46,6 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
             </div>
           </div>
           <div class="hidden md:flex items-center space-x-1">
-            <ColorToggle />
             <div v-if="$auth.loggedIn">
               <div class="flex flex-row space-x-4">
                 <Avatar v-if="$auth.user.picture">

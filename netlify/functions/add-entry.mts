@@ -25,7 +25,7 @@ export default async (req: Request, _: Context) => {
   // but it's only available in the netlify paid plan
   await entries.setJSON(timestamp, body, {
     metadata: {
-      date: timestamp,
+      date: body.date,
       files: body.files,
       uid: body.uid,
     },
