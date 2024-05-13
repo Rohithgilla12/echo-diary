@@ -1,3 +1,7 @@
+<script setup lang="ts">
+navigateTo("/app/dashboard");
+</script>
+
 <template>
   <div class="container">
     <h1>Please Login to continue</h1>
