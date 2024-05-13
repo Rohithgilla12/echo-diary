@@ -19,17 +19,16 @@ import {
   getLocalTimeZone,
 } from "@internationalized/date";
 import Textarea from "~/components/ui/textarea/Textarea.vue";
+import type { Entry } from "~/types/entry";
 
 const df = new DateFormatter("en-US", {
   dateStyle: "long",
 });
 
 const value = ref<DateValue>();
-
+const body = ref<string>();
 const image = ref<File | null>();
 const audio = ref<File | null>();
-
-const fileIds = ref<string[]>([]);
 
 const loading = ref(false);
 
@@ -47,8 +46,8 @@ const supabase = useSupabaseClient();
 
 //todo: move it to a better place later
 const uploadFiles = async () => {
+  const fileIds = [] as string[];
   try {
-    loading.value = true;
     if (image.value) {
       const { data, error } = await supabase.storage
         .from("entries")
@@ -57,7 +56,7 @@ const uploadFiles = async () => {
       if (error) {
         toast({ description: error.message, title: "Error" });
       } else {
-        fileIds.value.push(data.path);
+        fileIds.push(data.path);
       }
     }
 
@@ -69,7 +68,7 @@ const uploadFiles = async () => {
       if (error) {
         toast({ description: error.message, title: "Error" });
       } else {
-        fileIds.value.push(data.path);
+        fileIds.push(data.path);
       }
     }
   } catch (error) {
@@ -77,6 +76,58 @@ const uploadFiles = async () => {
       description: "Oops, error while uploading files to the ☁️",
       title: "Error",
     });
+  } finally {
+    return fileIds;
+  }
+};
+
+const cleanUp = () => {
+  body.value = "";
+  image.value = null;
+  audio.value = null;
+};
+
+const addEntryObject = async () => {
+  try {
+    loading.value = true;
+    const fileIds = await uploadFiles();
+
+    const requestBody = {
+      body: body.value,
+      files: fileIds,
+      date: value.value?.toString(),
+      uid: useAuth().user?.id,
+    } as Entry;
+
+    console.log(requestBody);
+
+    const data = $fetch("/.netlify/functions/add-entry", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      onResponse(response) {
+        cleanUp();
+        if (response.response.status === 200) {
+          toast({
+            description: "Entry saved successfully.",
+            title: "Success",
+          });
+        } else {
+          toast({
+            description: "Oops, error while saving the entry.",
+            title: "Error",
+          });
+        }
+      },
+    });
+
+    console.log(data);
+  } catch (error) {
+    toast({
+      description: "Oops, error while saving the entry.",
+      title: "Error",
+    });
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -118,6 +169,7 @@ const uploadFiles = async () => {
               placeholder="I am feeling excited today..."
               class="mb-2"
               id="content"
+              v-model="body"
             />
           </div>
 
@@ -150,9 +202,8 @@ const uploadFiles = async () => {
         </div>
       </CardContent>
       <CardFooter class="flex justify-between">
-        <Button
-          variant="default"
-          @click="() => toast({ description: 'Entry saved.' })"
+        <Button v-if="loading" variant="ghost" disabled>Adding...</Button>
+        <Button v-else variant="default" @click="() => addEntryObject()"
           >Save</Button
         >
         <Button variant="ghost">Cancel</Button>
