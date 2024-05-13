@@ -36,11 +36,6 @@ const imageUrl = computed(() => urls.find((url) => isImageFile(url)));
               class="w-20 h-20 rounded-md shadow"
               v-if="imageUrl"
             />
-            <!-- <img
-                src="/placeholder.svg"
-                alt="placeholder"
-                class="w-20 h-20 rounded-md shadow"
-              /> -->
             <audio controls :src="audioUrl" class="max-w-lg" v-if="audioUrl">
               Your browser does not support the audio element.
             </audio>
