@@ -1,5 +1,4 @@
 <template>
-  <header></header>
   <NuxtLayout :name="'dashboard'">
     <NuxtPage />
   </NuxtLayout>

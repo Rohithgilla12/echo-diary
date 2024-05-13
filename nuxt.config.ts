@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "shadcn-nuxt",
     "@nuxtjs/supabase",
+    "@nuxt/image",
   ],
   shadcn: {
     /**
@@ -24,5 +25,9 @@ export default defineNuxtConfig({
   },
   components: {
     dirs: ["~/components", "~/components/ui"],
+  },
+  image: {
+    provider: "netlify",
+    domains: ["rbcsiktanrmobssbaros.supabase.co"],
   },
 });

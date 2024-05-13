@@ -99,9 +99,7 @@ const addEntryObject = async () => {
       uid: useAuth().user?.id,
     } as Entry;
 
-    console.log(requestBody);
-
-    const data = $fetch("/.netlify/functions/add-entry", {
+    $fetch("/.netlify/functions/add-entry", {
       method: "POST",
       body: JSON.stringify(requestBody),
       onResponse(response) {
@@ -119,8 +117,6 @@ const addEntryObject = async () => {
         }
       },
     });
-
-    console.log(data);
   } catch (error) {
     toast({
       description: "Oops, error while saving the entry.",
